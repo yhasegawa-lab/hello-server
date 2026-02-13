@@ -12,9 +12,10 @@ image: hello-server
 push: image
 	docker tag $(CONTAINER_REPOSITORY):latest $(CONTAINER_REPOSITORY):$(shell git rev-parse HEAD)
 	# 通常ではここで `docker push` を行うが、このチュートリアルでは代わりに `kind load` を使う。
-	kind load docker-image $(CONTAINER_REPOSITORY):latest
-	kind load docker-image $(CONTAINER_REPOSITORY):$(shell git rev-parse HEAD)
-
+# 	kind load docker-image $(CONTAINER_REPOSITORY):latest
+# 	kind load docker-image $(CONTAINER_REPOSITORY):$(shell git rev-parse HEAD)
+	minikube image load $(CONTAINER_REPOSITORY):latest
+	minikube image load $(CONTAINER_REPOSITORY):$(shell git rev-parse HEAD)
 .PHONY: clean
 clean:
 	rm -f hello-server
